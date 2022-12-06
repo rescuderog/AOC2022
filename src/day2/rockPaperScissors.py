@@ -53,7 +53,46 @@ The total score is still calculated in the same way, but now you need to figure 
 Following the Elf's instructions for the second column, what would your total score be if everything goes exactly according to your strategy guide?
 
 '''
+#so, now we have to invert what we did, let's write a new function to account for that.
+#first, though, we may be better off utilizing a dict of the winning outcomes to compare faster
 
+dictWinningOutcomes = {"A": 2, "B": 3, "C": 1}
 
+def solveRPS2(a, b):
+    valueA = dictAgainst[a]
+    valueB = dictMe[b]
+    outcome = 0
 
+    #loss condition. We saw last time that, excepting the Rock-Scissors combo, we can safely just
+    #deduct 1 from the shape the opponent does and we're losing every time
+    if valueB == 1:
+        if valueA != 1:
+            myShape = valueA - 1
+        else:
+            myShape = 3
+        outcome = myShape + 0
+    #win condition. Same here, we add 1 to the shape of the opponent and we're winning.
+    elif valueB == 3:
+        if valueA != 3:
+            myShape = valueA + 1
+        else:
+            myShape = 1
+        outcome = myShape + 6
+    #draw condition. We just need to replicate the opponent's shape.
+    elif valueB == 2:
+        myShape = valueA
+        outcome = 3 + myShape
 
+    return outcome
+
+totalValue = 0
+
+with open('../../inputs/input2.txt') as f:
+    lines = f.readlines()
+    for line in lines:
+        line = line.strip()
+        a, b = line.split(' ')
+        result = solveRPS2(a, b)
+        totalValue += result
+
+print("The resulting score of the 2nd simulation is:", totalValue)
