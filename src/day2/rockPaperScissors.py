@@ -15,19 +15,45 @@ totalValue = 0
 
 def solveRPS(a, b):
     valueA = dictAgainst[a]
-    valueB = dictAgainst[b]
+    valueB = dictMe[b]
     outcome = 0
+    #first outcome is the easiest: a draw, we just add 3 as per the rules and the value of the shape
     if valueB == valueA:
-        
+        outcome = 3 + valueB
+    #the exception to the rule in both loss and win scenarios
+    elif valueA == 3 and valueB == 1:
+        outcome = 6 + valueB
+    elif valueA == 1 and valueB == 3:
+        outcome = 0 + valueB
+    #this is the win scenario, except for the Rock-Scissors combo, which is an exception to the rule (1 wins against 3)
+    #in all other cases, the higher value wins against the lower one
+    elif valueB > valueA:
+        outcome = 6 + valueB
+    #loss scenario
+    elif valueA > valueB:
+        outcome = 0 + valueB
+    return outcome
 
 
-with open('../../input2.txt') as f:
+with open('../../inputs/input2.txt') as f:
     lines = f.readlines()
     for line in lines:
+        line = line.strip()
         a, b = line.split(' ')
         result = solveRPS(a, b)
         totalValue += result
 
 print("The resulting score of the simulation is:", totalValue)
+
+''' Part 2: 
+
+The Elf finishes helping with the tent and sneaks back over to you. 
+"Anyway, the second column says how the round needs to end: X means you need to lose, Y means you need to end the round in a draw, and Z means you need to win. Good luck!"
+The total score is still calculated in the same way, but now you need to figure out what shape to choose so the round ends as indicated.
+Following the Elf's instructions for the second column, what would your total score be if everything goes exactly according to your strategy guide?
+
+'''
+
+
 
 
