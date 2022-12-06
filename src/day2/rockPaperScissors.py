@@ -13,6 +13,7 @@ dictAgainst = {"A": 1, "B": 2, "C": 3}
 dictMe = {'X': 1, 'Y': 2, 'Z': 3}
 totalValue = 0
 
+#then we write a function to calculate the outcome, based on the two values given
 def solveRPS(a, b):
     valueA = dictAgainst[a]
     valueB = dictMe[b]
