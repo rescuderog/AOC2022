@@ -54,9 +54,6 @@ Following the Elf's instructions for the second column, what would your total sc
 
 '''
 #so, now we have to invert what we did, let's write a new function to account for that.
-#first, though, we may be better off utilizing a dict of the winning outcomes to compare faster
-
-dictWinningOutcomes = {"A": 2, "B": 3, "C": 1}
 
 def solveRPS2(a, b):
     valueA = dictAgainst[a]
