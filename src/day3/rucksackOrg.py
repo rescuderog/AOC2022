@@ -20,9 +20,33 @@ Find the item type that appears in both compartments of each rucksack. What is t
 #this built-in library will help us trivialize a lot of the work required otherwise building the ascii dict
 import string
 
+#using dictionary comprehension we can create a dict of letters exactly as required
+#we're lucky here that the letters that were asked were the ASCII characters, so
+#as said before, this built-in library has a list of ascii characters ready to consume
+dictLetters = {letter: i+1 for i, letter in enumerate(string.ascii_letters)}
+
 #the dividing in half part is also fairly trivial with python.
 #we just have to slice the string to half its length in each direction
 def divideInHalf(theString):
     lowerHalf = theString[:len(theString)//2]
     upperHalf = theString[len(theString)//2:]
     return lowerHalf, upperHalf
+
+#now it's just a matter of looping and comparing between halves
+
+with open('../../inputs/input3.txt') as f:
+    lines = f.readlines()
+    #this will be the final response tally
+    result = 0
+    for line in lines:
+        line = line.strip()
+        line1, line2 = divideInHalf(line)
+        alreadyDuplicate = []
+        #we iterate over each character and compare it to the other half.
+        #we also take in account each duplicate char, so we don't calculate repeats
+        for letter in line1:
+            if letter in line2 and letter not in alreadyDuplicate:
+                alreadyDuplicate.append(letter)
+                result = result + dictLetters[letter]
+
+print("The final result is:", result)
